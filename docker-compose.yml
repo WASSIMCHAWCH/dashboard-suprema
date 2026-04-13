@@ -1,24 +1,15 @@
-version: '3.8'
-
 services:
   suprema-dashboard:
     build: .
-    container_name: suprema-dashboard
-    restart: always
     ports:
       - "8000:8000"
     environment:
       HOST: 0.0.0.0
       PORT: 8000
-      DOORS_PATH: /app/data/doors
-      SUPREMA_PATH: /app/data/support/suprema.xlsx
+      DOORS_PATH: /data/doors
+      SUPREMA_PATH: /data/support/suprema.xlsx
       SUPPORT_JSON_PATH: /app/exports/doors_reference.json
     volumes:
-      - suprema_exports:/app/exports
-      - suprema_data_doors:/app/data/doors
-      - suprema_data_support:/app/data/support
-
-volumes:
-  suprema_exports:
-  suprema_data_doors:
-  suprema_data_support:
+      - ./exports:/app/exports
+      - ./data/doors:/data/doors
+      - ./data/support:/data/support:ro
