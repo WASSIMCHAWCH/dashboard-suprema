@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Door Access Dashboard</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+
+    <main class="shell">
+      <nav class="top-nav">
+        <div class="brand">Suprema Access</div>
+        <div class="nav-links">
+          <a href="/" class="nav-link active" aria-current="page">Dashboard</a>
+        </div>
+      </nav>
+      <header class="hero">
+        <div class="hero-text">
+          <span class="eyebrow">Suprema Access</span>
+          <h1>Door Access Dashboard</h1>
+          <p class="lead">Live access matrix from the shared doors folder.</p>
+          <div class="meta">
+            <div>
+              <span class="label">Source</span>
+              <span id="source-path">--</span>
+            </div>
+            <div>
+              <span class="label">Updated</span>
+              <span id="generated-at">--</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-card">
+            <div class="stat-label">Users</div>
+            <div class="stat-value" id="stat-users">--</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Doors</div>
+            <div class="stat-value" id="stat-doors">--</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Visible</div>
+            <div class="stat-value" id="stat-visible">--</div>
+          </div>
+        </div>
+      </header>
+
+      <section class="controls">
+        <div class="field">
+          <label for="search">Search</label>
+          <input id="search" type="search" placeholder="Name, ID, function, department" />
+        </div>
+        <div class="field">
+          <label for="door-filter">Door filter</label>
+          <select id="door-filter"></select>
+        </div>
+        <div class="field checkbox">
+          <label>
+            <input type="checkbox" id="door-only" checked />
+            Only show users with access to selected door
+          </label>
+        </div>
+        <div class="actions">
+          <button id="refresh" class="btn secondary">Refresh</button>
+          <button id="sync-btn" class="btn primary">Sync Data</button>
+          <input type="file" id="sync-input" multiple style="display: none;" />
+          <button id="export" class="btn ghost">Export Excel</button>
+        </div>
+      </section>
+
+      <section class="status" id="status" aria-live="polite"></section>
+
+      <section class="table-section">
+        <div class="table-head">
+          <div class="count" id="row-count">0 rows</div>
+        </div>
+        <div class="table-scroll">
+          <table id="dashboard-table">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
