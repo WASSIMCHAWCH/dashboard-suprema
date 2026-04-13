@@ -4,17 +4,13 @@ This dashboard reads the shared `doors` folder and builds a live access matrix i
 
 ## Run
 
-PowerShell (default path is `\\files\partage\Données Cytopharma\suprema\doors`):
-
 ```
 python app.py
 ```
 
 Override the path if needed:
 
-```
-$env:DOORS_PATH = "\\files\partage\Données Cytopharma\suprema\doors"
-python app.py
+
 ```
 
 Open `http://127.0.0.1:8000` in your browser.
@@ -25,10 +21,7 @@ The exported Excel sheet is protected with password `0000`.
 
 Departments are loaded from the `CDC` sheet in the support file by default. Override with:
 
-```
-$env:SUPREMA_PATH = "\\files\\partage\\Données Cytopharma\\suprema\\support\\suprema.xlsx"
-python app.py
-```
+
 
 The comparison reads the `CDC` sheet and merges duplicate door columns (same L-code) so a door is granted if any duplicate column has an X.
 The JSON report is saved to `exports/doors_reference.json` inside the project automatically when `/comper` loads.
