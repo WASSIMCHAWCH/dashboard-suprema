@@ -852,12 +852,16 @@ class DashboardHandler(BaseHTTPRequestHandler):
         files_to_save = []
         
         # Determine the "Required Set" from existing files
-        doors_dir = Path('data/doors')
+        doors_dir = Path(DOORS_PATH)
         required_files = {} # lowercase -> original
         if doors_dir.exists():
             for p in doors_dir.glob('*.csv'):
                 required_files[p.name.lower()] = p.name
         
+        # Always require users.csv even on fresh install
+        if 'users.csv' not in required_files:
+            required_files['users.csv'] = 'users.csv'
+
         has_users = False
         uploaded_names = {part['filename'].lower() for part in parts}
         
@@ -877,14 +881,14 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 except Exception as e:
                     errors.append(f"Invalid format for users.csv: {e}")
                 has_users = True
-                files_to_save.append(('data/doors/users.csv', part['data']))
+                files_to_save.append((str(doors_dir / 'users.csv'), part['data']))
             
             elif name == 'suprema.xlsx':
-                files_to_save.append(('data/support/suprema.xlsx', part['data']))
+                files_to_save.append((SUPREMA_PATH, part['data']))
             
             elif name.endswith('.csv'):
                 # Door files
-                files_to_save.append((f'data/doors/{part["filename"]}', part['data']))
+                files_to_save.append((str(doors_dir / part['filename']), part['data']))
 
         # Check for missing required files
         for req_lower, req_orig in required_files.items():
